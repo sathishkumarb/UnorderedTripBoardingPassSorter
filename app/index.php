@@ -1,8 +1,8 @@
 <?php
 /* 
- * @author
- * @copyright
- * @time
+ * @author:Sathish
+ * @copyright:nil
+ * @time:05-06-2016
  */
 
 spl_autoload_register('AutoLoader');
@@ -17,7 +17,8 @@ function AutoLoader($className)
 use lib as Jour;
 
 $obj = new Jour\Journey(basename("/journey.json"));
-$JourneyRoutes = $obj->journeySummary();
+$obj->journeySummary();
+$JourneyRoutes = $obj->getJourneyPaths();
 
 foreach( $JourneyRoutes as $index => $path ){
     echo ($index + 1). ") from ". $path['departure'].  " To ". $path['arrival'] . " , Transport seat".  $path['seat'] . ", ".$path['text']."<br>";
