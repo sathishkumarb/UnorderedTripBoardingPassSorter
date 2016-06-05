@@ -29,7 +29,7 @@ class Journey{
          */
 	protected $pointTransit;
         /*
-         * @var $journeypaths
+         * @var $journeyPaths
          */
 	protected $journeyPaths;
         /*
@@ -69,44 +69,43 @@ class Journey{
             return $this->arrival;
         }
         /*
-         * @param type
+         * @param type takes Cards Array from constructor
          * @return json / array sorted array data
          */
 	public function journeySummary(){
-           
 
-		//find the one occurence of departure and arrival place
+		//To find atleast departure and arrival colummns that ocuurs in cards once,by splitting up the columns of departure and arrival
 		if (count($this->jsonJourneyCards)) {
 			
-			foreach ($this->jsonJourneyCards as $value){
-		
-				if (!in_array($value['arrival'],array_column($this->jsonJourneyCards, 'departure'))){
-					$this->arival = $value['arrival'];
-				}
+                    foreach ($this->jsonJourneyCards as $value){
 
-				if (!in_array($value['departure'],array_column($this->jsonJourneyCards, 'arrival'))){
-					$this->departure = $value['departure'];
-				}
-			}
+                        if (!in_array($value['arrival'],array_column($this->jsonJourneyCards, 'departure'))){
+                                $this->arival = $value['arrival'];
+                        }
 
-		$this->pointTransit = $this->departure;
-	        $this->journeypaths = array();
-	        
-	        while ($this->pointTransit != $this->arival) { // check till departure place is not equal to arrival with temp assingation move poointer to  next deaprtue with arrival on trnasit
-	            foreach ($this->jsonJourneyCards as $index => $path) {
-	                if ($path['departure'] == $this->pointTransit)  {
-	                    $this->journeypaths[] = $path;
-	                    $this->pointTransit = $path['arrival']; // replace 
-	                    unset($this->jsonJourneyCards[$index]);
-	                }
-	            }
-	        }
-		}
-		if ( !empty($this->journeypaths) ) {
-                    foreach($this->journeypaths as $index => $path){
-                            echo ($index + 1). ") from ". $path['departure'].  " To ". $path['arrival'] . " , Transport seat".  $path['seat'] . ", ".$path['text']."<br>";
+                        if (!in_array($value['departure'],array_column($this->jsonJourneyCards, 'arrival'))){
+                                $this->departure = $value['departure'];
+                        }
+                    }
+
+                    $this->pointTransit = $this->departure;
+                    $this->journeyPaths = array();
+                    // Loop Till Departure is not arrival on cards with temporary transit point
+                    while ( $this->pointTransit != $this->arival ) { 
+                        foreach ( $this->jsonJourneyCards as $index => $path ) {
+                            // Move Pointer if boarding card arrival mathces next pointer departure
+                            if ( $path['departure'] == $this->pointTransit )  {
+                                $this->journeyPaths[] = $path;
+                                $this->pointTransit = $path['arrival']; 
+                                unset($this->jsonJourneyCards[$index]);
+                            }
+                        }
                     }
                 }
+		if ( !empty( $this->journeyPaths ) ) {
+                    return $this->journeyPaths;
+                }
+                return false;
 	}
 }
 ?>

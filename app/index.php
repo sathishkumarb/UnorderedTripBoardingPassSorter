@@ -17,4 +17,8 @@ function AutoLoader($className)
 use lib as Jour;
 
 $obj = new Jour\Journey(basename("/journey.json"));
-$obj->journeySummary();
+$JourneyRoutes = $obj->journeySummary();
+
+foreach( $JourneyRoutes as $index => $path ){
+    echo ($index + 1). ") from ". $path['departure'].  " To ". $path['arrival'] . " , Transport seat".  $path['seat'] . ", ".$path['text']."<br>";
+}
