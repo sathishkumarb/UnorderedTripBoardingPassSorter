@@ -13,9 +13,9 @@ class Journey{
          */
 	protected $journeyString;
         /*
-         * @var $passDetails
+         * @var jsonJourneyCards
          */
-	protected $passDetails;
+	protected $jsonJourneyCards;
         /*
          * @var $arrival to the final point
          */
@@ -38,10 +38,10 @@ class Journey{
          */
 	function __construct($filename){
             $this->journeyString = @file_get_contents($filename);
-            $this->passDetails = json_decode($this->journeyString, true);
+            $this->jsonJourneyCards = json_decode($this->journeyString, true);
 
-            if (empty($this->passDetails)) {
-                throw new InvalidArgumentException("Content Empty");
+            if (empty($this->jsonJourneyCards)) {
+                throw new InvalidArgumentException("Json Content Empty");
             }
 	}
         
@@ -51,6 +51,14 @@ class Journey{
          */
         public function getDeparture(){
             return $this->departure;
+        }
+        
+        /*
+         * @param type
+         * @return type departure
+         */
+        public function getJourneyCards(){
+            return $this->jsonJourneyCards;
         }
         
         /*
@@ -65,17 +73,18 @@ class Journey{
          * @return json / array sorted array data
          */
 	public function journeySummary(){
+           
 
 		//find the one occurence of departure and arrival place
-		if (count($this->passDetails)) {
+		if (count($this->jsonJourneyCards)) {
 			
-			foreach ($this->passDetails as $value){
+			foreach ($this->jsonJourneyCards as $value){
 		
-				if (!in_array($value['arrival'],array_column($this->passDetails, 'departure'))){
+				if (!in_array($value['arrival'],array_column($this->jsonJourneyCards, 'departure'))){
 					$this->arival = $value['arrival'];
 				}
 
-				if (!in_array($value['departure'],array_column($this->passDetails, 'arrival'))){
+				if (!in_array($value['departure'],array_column($this->jsonJourneyCards, 'arrival'))){
 					$this->departure = $value['departure'];
 				}
 			}
@@ -84,11 +93,11 @@ class Journey{
 	        $this->journeypaths = array();
 	        
 	        while ($this->pointTransit != $this->arival) { // check till departure place is not equal to arrival with temp assingation move poointer to  next deaprtue with arrival on trnasit
-	            foreach ($this->passDetails as $index => $path) {
+	            foreach ($this->jsonJourneyCards as $index => $path) {
 	                if ($path['departure'] == $this->pointTransit)  {
 	                    $this->journeypaths[] = $path;
 	                    $this->pointTransit = $path['arrival']; // replace 
-	                    unset($this->passDetails[$index]);
+	                    unset($this->jsonJourneyCards[$index]);
 	                }
 	            }
 	        }
