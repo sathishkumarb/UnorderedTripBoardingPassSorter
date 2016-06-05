@@ -3,20 +3,20 @@
         "departure": "Barcelona",
         "arrival": "Gerona Airport",
         "transport": "airport bus",
-        "seat": "45B",
+        "seat": "No seat assignment",
         "text": ""
     },    
     {
         "departure": "Gerona Airport",
         "arrival": "Stockholm",
-        "transport": "flight SK455 (gate 45B)",
+        "transport": "flight SK455 (Gate 45B)",
         "seat": "3A",
         "text": "Baggage drop at ticket counter 344"
     },
     {
         "departure": "Stockholm",
         "arrival": "New York JFK",
-        "transport": "flight SK22 (gate 22)",
+        "transport": "flight SK22 (Gate 22)",
         "seat": "7B",
         "text": "Baggage will we automatically transferred from your last leg"
     },

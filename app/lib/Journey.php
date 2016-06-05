@@ -6,7 +6,21 @@
  */
 namespace lib;
 
-class Journey
+/**
+ * Abstract Class Loadcards
+ * @abstracts getcards and setcards def
+ */
+abstract class LoadCards
+{
+    protected $cards;
+    abstract public function getCards();
+    abstract public function setCards($cards);
+}
+/**
+ * Class Journey
+ * @extends abstract loadcards
+ */
+class Journey extends LoadCards
 {
     
     /**
@@ -14,26 +28,25 @@ class Journey
      * @var $journeyString 
      */
     protected $journeyString;
-    /**
-     * Json jounery cards
-     * @var jsonJourneyCards
-     */
-    protected $jsonJourneyCards;
+    
     /**
      * Final point
      * @var $arrival 
      */
     protected $arrival;
+    
     /**
      * Start point
      * @var $departure 
      */
     protected $departure;
+    
     /**
      * Transition point in between
      * @var $pointTransit 
      */
     protected $pointTransit;
+    
     /**
      * Journey paths final array
      * @var $journeyPaths
@@ -47,13 +60,28 @@ class Journey
     public function __construct($filename)
     {
         $this->journeyString = @file_get_contents($filename);
-        $this->jsonJourneyCards = json_decode($this->journeyString, true);
-
-        if (empty($this->jsonJourneyCards)) {
+        $this->cards = json_decode($this->journeyString, true);
+        if (empty($this->cards)) {
             throw new InvalidArgumentException("Json Content Empty");
         }
     }
-
+      
+    /**
+     * Get json cards 
+     * @return Json Journey Cards
+     */
+    public function getCards()
+    {
+        return $this->cards;
+    }
+    /**
+     * Get json cards 
+     * @return Json Journey Cards
+     */
+    public function setCards($cards)
+    {
+        return $this->cards;
+    }
     /**
      * Get departure
      * @return string departure
@@ -61,15 +89,6 @@ class Journey
     public function getDeparture()
     {
         return $this->departure;
-    }
-
-    /**
-     * Get json cards 
-     * @return Json Journey Cards
-     */
-    public function getJourneyCards()
-    {
-        return $this->jsonJourneyCards;
     }
 
     /**
@@ -98,13 +117,13 @@ class Journey
     public function orderTrip()
     {
         //To find atleast departure and arrival colummns that ocuurs in cards once,by splitting up the columns of departure and arrival
-        if (count($this->jsonJourneyCards) > 0) {
-            foreach ($this->jsonJourneyCards as $value) {
-                if (!in_array($value['arrival'], array_column($this->jsonJourneyCards, 'departure'))) {
+        if (count($this->cards) > 0) {
+            foreach ($this->cards as $value) {
+                if (!in_array($value['arrival'], array_column($this->cards, 'departure'))) {
                     $this->arrival = $value['arrival'];
                 }
 
-                if (!in_array($value['departure'], array_column($this->jsonJourneyCards, 'arrival'))) {
+                if (!in_array($value['departure'], array_column($this->cards, 'arrival'))) {
                     $this->departure = $value['departure'];
                 }
             }
@@ -123,8 +142,8 @@ class Journey
     }
     
     /**
-     * Get Journey Summary
-     * @return array journeyPaths 
+     * Set Journey Paths Summary
+     * @return void
      */
     public function journeySummary()
     {
@@ -132,12 +151,12 @@ class Journey
 
         // Loop Till Departure is not arrival on cards with temporary transit point
         while ($this->pointTransit != $this->arrival) {
-            foreach ($this->jsonJourneyCards as $index => $path) {
+            foreach ($this->cards as $index => $path) {
                 // Move Pointer if boarding card arrival mathces next pointer departure
                 if ($path['departure'] == $this->pointTransit) {
                     $this->journeyPaths[] = $path;
                     $this->pointTransit = $path['arrival'];
-                    unset($this->jsonJourneyCards[$index]);
+                    unset($this->cards[$index]);
                 }
             }
         }
