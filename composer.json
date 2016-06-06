@@ -1,6 +1,5 @@
 {
-    ...
-    "autoload": {
+     "autoload": {
         "psr-0": { "": "lib/" }
     }
 }
