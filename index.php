@@ -19,6 +19,7 @@ $JourneyRoutes = $obj->getJourneyPaths();
          body {background-color:lightgrey;} h1 {color:blue;} p {color:green;}
     </style>
     <body>
+        <h1>Trip Sort List</h1>
 <?php
 if (!empty($JourneyRoutes) && count($JourneyRoutes)) {
     foreach ($JourneyRoutes as $index => $path) {
