@@ -80,7 +80,7 @@ class Journey
         $journeyString = @file_get_contents($filename);
         $cards = json_decode($journeyString, true);
         if (empty($cards)) {
-            throw new Exception("JSON not ready.");
+            throw new Exception("JSON Not Valid.");
         }
         return $cards;
     }
@@ -102,6 +102,17 @@ class Journey
         $this->cards = $cards;
         return $this;
     }
+    
+    /**
+     * Set departure
+     * @return string departure
+     */
+    public function setDeparture($departure)
+    {
+        $this->departure = $departure;
+        return $this;
+    }
+    
     /**
      * Get departure
      * @return string departure
@@ -109,6 +120,16 @@ class Journey
     public function getDeparture()
     {
         return $this->departure;
+    }
+    
+     /**
+     * Set arrival
+     * @return string this
+     */
+    public function setArrival($arrival)
+    {
+        $this->arrival = $arrival;
+        return $this;
     }
 
     /**
@@ -118,6 +139,16 @@ class Journey
     public function getArrival()
     {
         return $this->arrival;
+    }
+    
+    /**
+     * Set journey paths
+     * @return this
+     */
+    public function setJourneyPaths($journeyPaths)
+    {
+        $this->journeyPaths = $journeyPaths;
+        return $this;
     }
     
     /**
@@ -150,6 +181,16 @@ class Journey
             $this->pointTransit = $this->getDeparture();
             $this->journeySummary();
         }
+    }
+    
+    /**
+     * Set transit point
+     * @return this
+     */
+    public function setPointTransit($pointTransit)
+    {
+        $this->pointTransit = $pointTransit;;
+        return $this;
     }
     
     /**
