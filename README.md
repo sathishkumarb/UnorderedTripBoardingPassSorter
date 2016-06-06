@@ -22,3 +22,8 @@ $obj = new Journey($cards);
 $obj->orderTrip();
 $JourneyRoutes = $obj->getJourneyPaths();
 var_dump($JourneyRoutes);
+
+
+3) read the php-doc for more info
+
+boardingpasssort/phpdoc/classes/index.html
