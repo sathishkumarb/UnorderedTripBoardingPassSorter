@@ -26,7 +26,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
   
     /** Test Cards loaded are instance and of same type ex: array
-     * 
+     * return void
      */
     public function testJourneyCardsIsInstance()
     {
@@ -36,7 +36,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
     
     /** Test File not found json
-     * 
+     * return void
      */
     public function testFileNotFoundException()
     {
@@ -46,7 +46,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
     
     /** Test invalid 
-     * 
+     * return void
      */
     public function testInvalidJsonException()
     {
@@ -55,7 +55,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
         
     /** Test method properties are Null by default
-     * 
+     * return void
      */
     public function testFieldsAreNullByDefault()
     {
@@ -68,18 +68,17 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
     
     /** Test Departure null before loaded and not null after loaded card arrays
-     * 
+     * return void
      */
     public function testDepartureIsNullIsNotInit()
     {
-        
         $this->assertNull($this->obj->getDeparture());
         $this->obj->orderTrip();
         $this->assertNotNull($this->obj->getDeparture());
     }
     
     /** Test Arrival null before loaded and not null after loaded card arrays
-     * 
+     * return void
      */
     public function testArrivalIsNullIsNotInit()
     {
@@ -89,7 +88,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
     
     /** Test Arrival and departure are not equal
-     * 
+     * return void
      */
     public function testDepartureAndArrivalAreNotEqual()
     { 
@@ -98,7 +97,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
     
     /** Test trip cards same type
-     * 
+     * return void
      */    
     public function testTripCardsSame()
     {
@@ -108,7 +107,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
     
     /** Test trip departure same get set
-     * 
+     * return void
      */
     public function testTripDepartureSame()
     {
@@ -128,7 +127,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
     
     /** Test trip transit point same type
-     * 
+     * return void
      */
     public function testPointTransitSame()
     {
@@ -138,7 +137,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     }
     
     /** Test journey paths same type
-     * 
+     * return void
      */
     public function testJourneyPathsSame()
     {

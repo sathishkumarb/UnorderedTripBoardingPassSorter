@@ -2,7 +2,7 @@
 /**
  * @author:sathish
  * @copyright:
- * @time:
+ * @link      https://github.com/sathishkumarb/UnorderedTripBoardingPassSorter
  */
 //namespace lib;
 use Exception as Exception;
@@ -13,16 +13,24 @@ use Exception as Exception;
  */
 abstract class LoadCards
 {
+    /**
+     * Cards array
+     * @var $cards 
+     */
     protected $cards;
     /**
      * abstract get set cards
-     * @return type
+     * @return array cards
      */
     abstract public function getCards();
+    /**
+     * abstract get set cards
+     * @return null
+     */
     abstract public function setCards($cards);
      /**
      * LoadJson to define body
-     * @return type
+     * @return array cards
      */
     public static function loadJson()
     {
@@ -35,12 +43,6 @@ abstract class LoadCards
  */
 class Journey
 {
-    
-    /**
-     * Json journey string
-     * @var $journeyString 
-     */
-    protected $journeyString;
     
     /**
      * Final point
@@ -76,8 +78,8 @@ class Journey
     
     
     /**
-     * LoadJson to load unordered cards overriden in inheried class
-     * @return type
+     * Function LoadJson to load unordered cards from json and gets overriden from inheried class
+     * @return array cards
      */
     public static function loadJson($filename)
     {
@@ -90,16 +92,16 @@ class Journey
     }
    
     /**
-     * Get json cards 
-     * @return Json Journey Cards
+     * Get Cards 
+     * @return array cards
      */
     public function getCards()
     {
         return $this->cards;
     }
     /**
-     * Get json cards 
-     * @return Json Journey Cards
+     * Set Cards 
+     * @return array Cards
      */
     public function setCards($cards)
     {
@@ -118,7 +120,7 @@ class Journey
     }
     
     /**
-     * Get departure
+     * Get Departure
      * @return string departure
      */
     public function getDeparture()
@@ -138,7 +140,7 @@ class Journey
 
     /**
      * Get arrival
-     * @return string arrival point 
+     * @return string arrival
      */
     public function getArrival()
     {
@@ -147,7 +149,7 @@ class Journey
     
     /**
      * Set journey paths
-     * @return this
+     * @return array journey paths
      */
     public function setJourneyPaths($journeyPaths)
     {
@@ -165,9 +167,9 @@ class Journey
     }
         
     /**
-     * returns sorted cards
+     * Extracts the departure and arrival column to find minimum occurence in array of cards
      * @param type takes Cards Array from constructor
-     * @return json / array sorted array data
+     * @return array sorted array data
      */
     public function orderTrip()
     {
@@ -189,7 +191,7 @@ class Journey
     
     /**
      * Set transit point
-     * @return this
+     * @return string transit point
      */
     public function setPointTransit($pointTransit)
     {
@@ -199,7 +201,7 @@ class Journey
     
     /**
      * Get transit point
-     * @return array journeyPaths 
+     * @return string transit point
      */
     public function getPointTransit()
     {
@@ -207,7 +209,7 @@ class Journey
     }
     
     /**
-     * Set Journey Paths Summary
+     * Sorts and orders the departure and arrival 
      * @return void
      */
     public function journeySummary()
