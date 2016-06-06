@@ -17,13 +17,22 @@ function AutoLoader($className)
 
 use lib as Jour;
 
-$obj = new Jour\Journey(basename("/journey.json"));
+$obj = new Jour\Journey(basename("../data/journey.json"));
 $obj->orderTrip();
 $JourneyRoutes = $obj->getJourneyPaths();
-
+?>
+<html>
+    <style>
+         body {background-color:lightgrey;} h1 {color:blue;} p {color:green;}
+    </style>
+    <body>
+<?php
 if (!empty($JourneyRoutes) && count($JourneyRoutes)) {
     foreach ($JourneyRoutes as $index => $path) {
-        echo($index + 1). ") Take ".$path['transport']." from ". $path['departure'].  " To ". $path['arrival'] . " , Seat :".  $path['seat'] . " , ".$path['text']."<br>";
+        echo "<p>".($index + 1). ") Take ".$path['transport']." from ". $path['departure'].  " To ". $path['arrival'] . ", Seat :".  $path['seat'] . " , ".$path['text']."</p><br>";
     }
-    echo $index + 2 . ") You have reached final destination";
+    echo "<p>". ($index + 2) . ") You have reached final destination</p>";
 }
+?>
+    </body>
+</html>
