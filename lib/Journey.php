@@ -79,8 +79,8 @@ class Journey
     {
         $journeyString = @file_get_contents($filename);
         $cards = json_decode($journeyString, true);
-        if (empty($cards)) {
-            throw new Exception("JSON Not Valid.");
+        if ( $cards == null) {
+            throw new InvalidArgumentException("JSON Invalid");
         }
         return $cards;
     }
