@@ -6,18 +6,18 @@
  * copyright:nil
  */
 
-class AutoLoader {
+class AutoLoader
+{
  
-    static private $classNames = array();
+    private static $classNames = array();
  
     /**
      * Store the filename (sans extension) & full path of all ".php" files found
      */
-    public static function registerDirectory($dirName) {
- 
+    public static function registerDirectory($dirName)
+    {
         $di = new DirectoryIterator($dirName);
         foreach ($di as $file) {
- 
             if ($file->isDir() && !$file->isLink() && !$file->isDot()) {
                 // recurse into directories other than a few special ones
                 self::registerDirectory($file->getPathname());
@@ -29,16 +29,17 @@ class AutoLoader {
         }
     }
  
-    public static function registerClass($className, $fileName) {
+    public static function registerClass($className, $fileName)
+    {
         AutoLoader::$classNames[$className] = $fileName;
     }
  
-    public static function loadClass($className) {
+    public static function loadClass($className)
+    {
         if (isset(AutoLoader::$classNames[$className])) {
             require_once(AutoLoader::$classNames[$className]);
         }
-     }
- 
+    }
 }
  
 spl_autoload_register(array('AutoLoader', 'loadClass'));

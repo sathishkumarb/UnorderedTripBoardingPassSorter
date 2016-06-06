@@ -34,7 +34,6 @@ abstract class LoadCards
      */
     public static function loadJson()
     {
-        
     }
 }
 /**
@@ -73,7 +72,7 @@ class Journey
      */
     public function __construct($cards)
     {
-       $this->setCards($cards);
+        $this->setCards($cards);
     }
     
     
@@ -85,7 +84,7 @@ class Journey
     {
         $journeyString = @file_get_contents($filename);
         $cards = json_decode($journeyString, true);
-        if ( $cards == null) {
+        if ($cards == null) {
             throw new InvalidArgumentException("JSON Invalid");
         }
         return $cards;
@@ -195,7 +194,8 @@ class Journey
      */
     public function setPointTransit($pointTransit)
     {
-        $this->pointTransit = $pointTransit;;
+        $this->pointTransit = $pointTransit;
+        ;
         return $this;
     }
     
@@ -230,4 +230,3 @@ class Journey
         return false;
     }
 }
-

@@ -20,7 +20,8 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     */
     protected $obj;
     
-    public function __construct(){
+    public function __construct()
+    {
         $this->cards = Journey::loadJson("../data/journey.json");
         $this->obj = new Journey($this->cards);
     }
@@ -32,7 +33,7 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     {
         $this->obj = new Journey($this->cards);
         $this->obj->orderTrip();
-        $this->assertContainsOnlyInstancesOf($this->obj, array() );
+        $this->assertContainsOnlyInstancesOf($this->obj, array());
     }
     
     /** Test File not found json
@@ -42,7 +43,6 @@ class JourneyTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('InvalidArgumentException');
         Journey::loadJson('data/nothing.json');
-        
     }
     
     /** Test invalid 
@@ -91,14 +91,14 @@ class JourneyTest extends PHPUnit_Framework_TestCase
      * return void
      */
     public function testDepartureAndArrivalAreNotEqual()
-    { 
+    {
         $this->obj->orderTrip();
         $this->assertNotEquals($this->obj->getDeparture(), $this->obj->getArrival());
     }
     
     /** Test trip cards same type
      * return void
-     */    
+     */
     public function testTripCardsSame()
     {
         $instance = $this->obj->setCards($origin = 'Madrid');
@@ -145,6 +145,4 @@ class JourneyTest extends PHPUnit_Framework_TestCase
         $this->assertSame($paths, $this->obj->getJourneyPaths());
         $this->assertSame($instance, $this->obj);
     }
-
- } 
-    
+}
