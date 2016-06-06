@@ -1,35 +1,32 @@
 <?php
-spl_autoload_register('AutoLoader');
-
-function AutoLoader($className)
-{
-    
-    require_once 'app\/'.$className . '.php';
-    //Make your own path, Might need to use Magics like ___DIR___
-}
-
-use lib as Jour;
-
-$obj = new Jour\Journey(basename("../data/journey.json"));
-
 /**
- * Class CardTtest
+ * Class JourneyTest
  *
- * @author    Julien Guittard <julien@youzend.com>
- * @link      http://github.com/jguittard/tripsorter for the canonical source repository
- * @copyright Copyright (c) 2014 Julien Guittard
+ * @author    Sathish
+ * @link      https://github.com/sathishkumarb/UnorderedTripBoardingPassSorter
+ * @copyright null
  */
+
+
+
 class JourneyTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testPropertiesAreNullByDefault()
+    public function testValidJsonIsObject()
     {
-        $this->assertNull($this->card->getDeparture());
-        $this->assertNull($this->card->getArrival());
-        $this->assertNull($this->card->getCards());
-        $this->assertNull($this->card->getTransitPoint());
-        $this->assertNull($this->card->getJourneyPaths());
+        $this->assertContainsOnlyInstancesOf('Journey', Journey::load(__DIR__ . '/../data/journey.json'));
     }
 
+    public function testFileNotFoundRaiseException()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        Journey::load('data/badfilename.json');}
+
+    public function testInvalidJsonRaiseException()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        Journey::load('data/dummy.file');
+        
+    }
+ } 
     
-} 
